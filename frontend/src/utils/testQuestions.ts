@@ -2,6 +2,16 @@ import type { Question } from '../types/test.types';
 
 export const TEST_QUESTIONS: Question[] = [
     {
+        id: 'q0_gender',
+        type: 'single',
+        text: '¿Para quién estás buscando el perfume?',
+        options: [
+            { value: 'male', label: 'Hombre' },
+            { value: 'female', label: 'Mujer' },
+        ],
+        required: true,
+    },
+    {
         id: 'q1_intensity',
         type: 'scale',
         text: '¿Qué tan intensa prefieres la fragancia de tu perfume?',
@@ -113,24 +123,5 @@ export const TEST_QUESTIONS: Question[] = [
             { value: 5, label: 'Muy largo (+8h)' },
         ],
         required: true,
-    },
-    {
-        id: 'q9_concentration',
-        type: 'single',
-        text: '¿Qué tipo de fragancia prefieres?',
-        options: [
-            { value: 'eau_de_cologne', label: 'Eau de Cologne' },
-            { value: 'eau_de_toilette', label: 'Eau de Toilette' },
-            { value: 'eau_de_parfum', label: 'Eau de Parfum' },
-            { value: 'parfum', label: 'Parfum' },
-            { value: 'not_sure', label: 'No estoy seguro/a' },
-        ],
-        required: false,
-    },
-    {
-        id: 'q10_reference',
-        type: 'text',
-        text: 'Si recuerdas algún perfume que te haya gustado mucho, escribe su nombre (opcional)',
-        required: false,
     },
 ];

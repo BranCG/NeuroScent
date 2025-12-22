@@ -1,5 +1,6 @@
 // Test related types
 export interface TestAnswers {
+  q0_gender: string;
   q1_intensity: number;
   q2_preferred_families: string[];
   q3_rejected_families: string[];

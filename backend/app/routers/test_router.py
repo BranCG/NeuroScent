@@ -62,8 +62,12 @@ async def calculate_affinity(
     db.commit()
     db.refresh(profile)
     
-    # 5. Get all active perfumes with vectors
-    perfumes = db.query(Perfume).filter(Perfume.is_active == True).all()
+    # 5. Get active perfumes filtered by gender (include unisex for both)
+    user_gender = test_data.q0_gender  # "male" or "female"
+    perfumes = db.query(Perfume).filter(
+        Perfume.is_active == True,
+        Perfume.gender.in_([user_gender, "unisex"])
+    ).all()
     
     if not perfumes:
         raise HTTPException(

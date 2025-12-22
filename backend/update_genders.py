@@ -2,8 +2,8 @@
 Script para actualizar el género de los perfumes existentes.
 """
 
-from app.database import SessionLocal, engine, Base
-from app.models.perfume import Perfume
+from sqlalchemy import text
+from app.database import SessionLocal, engine
 
 # Clasificación de géneros por perfume
 GENDER_CLASSIFICATION = {
@@ -14,7 +14,7 @@ GENDER_CLASSIFICATION = {
     "9PM": "male",
     "Khamrah": "male",
     "Asad": "male",
-    "Club de Nuit Sillage": "unisex",  # Unisex según descripción
+    "Club de Nuit Sillage": "unisex",
     "Odyssey Mandarin Sky": "male",
     "Ombre Oud Intense": "male",
     "Oros Oumo": "male",
@@ -43,51 +43,45 @@ GENDER_CLASSIFICATION = {
 }
 
 def update_genders():
-    """Actualiza el género de los perfumes existentes"""
-    db = SessionLocal()
+    """Actualiza el género de los perfumes existentes usando SQL directo"""
     
-    try:
+    with engine.connect() as conn:
         print("🔄 Actualizando géneros de perfumes...")
         
-        # Primero, agregar la columna si no existe (SQLite)
+        # Agregar columna si no existe
         try:
-            db.execute("ALTER TABLE perfumes ADD COLUMN gender VARCHAR(20) DEFAULT 'unisex'")
-            db.commit()
+            conn.execute(text("ALTER TABLE perfumes ADD COLUMN gender VARCHAR(20) DEFAULT 'unisex'"))
+            conn.commit()
             print("✅ Columna 'gender' agregada")
         except Exception as e:
-            print(f"ℹ️  Columna ya existe o error: {e}")
-            db.rollback()
+            print(f"ℹ️  Columna ya existe: {str(e)[:50]}")
         
         updated_count = 0
         
         for name, gender in GENDER_CLASSIFICATION.items():
-            perfume = db.query(Perfume).filter(Perfume.name == name).first()
+            result = conn.execute(
+                text("UPDATE perfumes SET gender = :gender WHERE name = :name"),
+                {"gender": gender, "name": name}
+            )
             
-            if perfume:
-                perfume.gender = gender
+            if result.rowcount > 0:
                 updated_count += 1
                 print(f"✅ '{name}' → {gender}")
             else:
                 print(f"⚠️  No encontrado: '{name}'")
         
-        db.commit()
+        conn.commit()
         print(f"\n🎉 {updated_count} perfumes actualizados con género.")
         
         # Mostrar resumen
-        male_count = db.query(Perfume).filter(Perfume.gender == "male").count()
-        female_count = db.query(Perfume).filter(Perfume.gender == "female").count()
-        unisex_count = db.query(Perfume).filter(Perfume.gender == "unisex").count()
+        male = conn.execute(text("SELECT COUNT(*) FROM perfumes WHERE gender = 'male'")).scalar()
+        female = conn.execute(text("SELECT COUNT(*) FROM perfumes WHERE gender = 'female'")).scalar()
+        unisex = conn.execute(text("SELECT COUNT(*) FROM perfumes WHERE gender = 'unisex'")).scalar()
         
         print(f"\n📊 Resumen:")
-        print(f"   Masculinos: {male_count}")
-        print(f"   Femeninos: {female_count}")
-        print(f"   Unisex: {unisex_count}")
-        
-    except Exception as e:
-        print(f"❌ Error: {str(e)}")
-        db.rollback()
-    finally:
-        db.close()
+        print(f"   Masculinos: {male}")
+        print(f"   Femeninos: {female}")
+        print(f"   Unisex: {unisex}")
 
 
 if __name__ == "__main__":

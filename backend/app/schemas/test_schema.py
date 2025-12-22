@@ -6,6 +6,7 @@ from datetime import datetime
 class TestAnswers(BaseModel):
     """Schema for test answers submission"""
     
+    q0_gender: str = Field(..., description="Gender preference: male, female")
     q1_intensity: int = Field(..., ge=1, le=5, description="Intensity preference (1-5)")
     q2_preferred_families: List[str] = Field(..., min_length=1, max_length=7)
     q3_rejected_families: Optional[List[str]] = Field(default=[])
@@ -21,6 +22,7 @@ class TestAnswers(BaseModel):
     class Config:
         json_schema_extra = {
             "example": {
+                "q0_gender": "male",
                 "q1_intensity": 3,
                 "q2_preferred_families": ["citrus", "aquatic", "woody"],
                 "q3_rejected_families": ["sweet"],
