@@ -18,10 +18,25 @@ export interface AffinityResult {
     };
 }
 
+export interface OlfactoryProfile {
+    id: string;
+    intensity: number;
+    citrus: number;
+    floral: number;
+    woody: number;
+    sweet: number;
+    spicy: number;
+    green: number;
+    aquatic: number;
+    emotion?: string;
+    season?: string;
+}
+
 export interface TestResult {
     test_id: string;
     user_id: string;
     profile_id: string;
+    olfactory_profile?: OlfactoryProfile;
     results: AffinityResult[];
     metadata: {
         total_perfumes_analyzed: number;
@@ -29,3 +44,4 @@ export interface TestResult {
         test_completed_at: string;
     };
 }
+

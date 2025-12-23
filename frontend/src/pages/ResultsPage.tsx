@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { testService } from '../services/testService';
 import type { TestResult } from '../types/perfume.types';
+import OlfactoryRadarChart from '../components/OlfactoryRadarChart';
+import ShareButton from '../components/ShareButton';
 import './ResultsPage.css';
 
 const ResultsPage = () => {
@@ -73,7 +75,18 @@ const ResultsPage = () => {
                 >
                     <h1>✨ Tus Resultados</h1>
                     <p>Basado en tus preferencias, estos son los perfumes con mayor afinidad:</p>
+                    <div className="share-button-wrapper">
+                        <ShareButton
+                            testId={result.test_id}
+                            topPerfumeName={result.results[0]?.perfume.name}
+                        />
+                    </div>
                 </motion.div>
+
+                {/* Radar Chart - Olfactory Profile */}
+                {result.olfactory_profile && (
+                    <OlfactoryRadarChart profile={result.olfactory_profile} />
+                )}
 
                 <div className="results-grid">
                     {result.results.map((item, index) => (

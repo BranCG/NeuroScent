@@ -1,0 +1,94 @@
+.radar-chart-container {
+    background: linear-gradient(145deg, rgba(30, 27, 75, 0.95), rgba(15, 23, 42, 0.98));
+    border-radius: 20px;
+    padding: 28px;
+    margin: 32px 0;
+    border: 1px solid rgba(168, 85, 247, 0.25);
+    box-shadow:
+        0 8px 32px rgba(168, 85, 247, 0.15),
+        0 0 60px rgba(99, 102, 241, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.radar-chart-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(244, 114, 182, 0.5), rgba(168, 85, 247, 0.5), transparent);
+}
+
+.radar-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #f472b6 0%, #a855f7 50%, #06b6d4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+}
+
+.radar-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 320px;
+}
+
+.radar-description {
+    text-align: center;
+    color: rgba(226, 232, 240, 0.7);
+    font-size: 0.9rem;
+    margin-top: 16px;
+    font-style: italic;
+}
+
+/* Custom Tooltip */
+.radar-tooltip {
+    background: linear-gradient(135deg, rgba(30, 27, 75, 0.98), rgba(15, 23, 42, 0.98));
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    border-radius: 10px;
+    padding: 10px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip-label {
+    color: #e2e8f0;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.tooltip-value {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #f472b6, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .radar-chart-container {
+        padding: 20px 12px;
+        margin: 24px 0;
+    }
+
+    .radar-title {
+        font-size: 1.2rem;
+    }
+
+    .radar-wrapper {
+        min-height: 280px;
+    }
+}

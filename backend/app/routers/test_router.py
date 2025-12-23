@@ -162,6 +162,19 @@ async def calculate_affinity(
             "test_id": str(test_result.id),
             "user_id": str(user.id),
             "profile_id": str(profile.id),
+            "olfactory_profile": {
+                "id": str(profile.id),
+                "intensity": profile.intensity,
+                "citrus": profile.citrus,
+                "floral": profile.floral,
+                "woody": profile.woody,
+                "sweet": profile.sweet,
+                "spicy": profile.spicy,
+                "green": profile.green,
+                "aquatic": profile.aquatic,
+                "emotion": profile.emotion,
+                "season": profile.season
+            },
             "results": results,
             "metadata": {
                 "total_perfumes_analyzed": len(perfumes),
@@ -231,6 +244,19 @@ async def get_test_result(
             "test_id": str(test_result.id),
             "user_id": str(test_result.user_id),
             "profile_id": str(profile.id),
+            "olfactory_profile": {
+                "id": str(profile.id),
+                "intensity": profile.intensity,
+                "citrus": profile.citrus,
+                "floral": profile.floral,
+                "woody": profile.woody,
+                "sweet": profile.sweet,
+                "spicy": profile.spicy,
+                "green": profile.green,
+                "aquatic": profile.aquatic,
+                "emotion": profile.emotion,
+                "season": profile.season
+            },
             "results": results,
             "metadata": {
                 "top_match_count": len(results),

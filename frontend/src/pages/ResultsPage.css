@@ -58,6 +58,12 @@
     font-size: var(--font-size-lg);
 }
 
+.share-button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-lg);
+}
+
 .results-grid {
     display: grid;
     gap: var(--spacing-2xl);
